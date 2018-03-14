@@ -5,6 +5,7 @@ import { Card } from 'semantic-ui-react'
 import web3 from '../../ethereum/web3'
 import Layout from '../../components/Layout';
 import Campaign from '../../ethereum/campaign';
+import ContributeForm from '../../components/ContributeForm';
 
 
 class CampaignShow extends Component {
@@ -30,7 +31,7 @@ class CampaignShow extends Component {
       requestsCount,
       approversCount
     }= this.props;
-    
+
     const items = [
       {
         header:manager,
@@ -67,12 +68,12 @@ class CampaignShow extends Component {
   }
 
   render() {
-    return ( 
+    return (
     <Layout >
-      < h3 > I am a Campaign < /h3>
+      < h3 > I am a Campaign </h3>
       {this.renderCards()}
-    </Layout >
-    );
+      <ContributeForm/>
+    </Layout >);
   }
 }
 
