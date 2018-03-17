@@ -7,7 +7,6 @@
     "test": "mocha",
     "dev": "node server.js",
     "deploy": "cd ethereum && node compile.js && node deploy.js"
-
   },
   "author": "",
   "license": "ISC",
