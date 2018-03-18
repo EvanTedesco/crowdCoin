@@ -15,12 +15,12 @@ class CampaignShow extends Component {
 
 
     return {
-      address : props.query.address,
-      minimumContribution : summary[ 0 ],
-      balance : summary[ 1 ],
-      requestCount : summary[ 2 ],
-      approversCount : summary[ 3 ],
-      manager : summary[ 4 ]
+      address: props.query.address,
+      minimumContribution: summary[ 0 ],
+      balance: summary[ 1 ],
+      requestCount: summary[ 2 ],
+      approversCount: summary[ 3 ],
+      manager: summary[ 4 ]
     };
   }
 
@@ -29,7 +29,7 @@ class CampaignShow extends Component {
       balance,
       manager,
       minimumContribution,
-      requestsCount,
+      requestCount,
       approversCount
     } = this.props;
 
@@ -47,7 +47,7 @@ class CampaignShow extends Component {
           'You must contribute at least this much wei to become an approver.'
       },
       {
-        header : requestsCount,
+        header : requestCount,
         meta : 'Number of Requests',
         description :
           'A request tries to withdraw funds from the contract. Requests must be approved by at least half of the contributors.'
