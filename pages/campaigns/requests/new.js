@@ -1,15 +1,17 @@
-import React, {Component} from 'react';
-import {Button, Form, Message, Input} from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { Button, Form, Message, Input } from 'semantic-ui-react';
 import Layout from '../../../components/Layout';
 import Campaign from '../../../ethereum/campaign';
 import web3 from '../../../ethereum/web3';
-import {Router, Link} from '../../../routes'
+import { Router, Link } from '../../../routes'
 
 class RequestsNew extends Component {
   state = {
     value : '',
     description : '',
-    recipient : ''
+    recipient : '',
+    errorMessage : '',
+    loading : false
   };
 
   static async getInitialProps(props) {
@@ -19,20 +21,22 @@ class RequestsNew extends Component {
 
   onSubmit = async (event) => {
     event.preventDefault();
+    this.setState({ loading : true, errorMessage : '' })
 
     const campaign = Campaign(this.props.address);
-    const {description, value, recipient} = this.state;
+    const { description, value, recipient } = this.state;
 
     try {
       const accounts = await web3.eth.getAccounts();
 
       await campaign.methods.createRequest(
         description, web3.utils.toWei(value, 'ether'), recipient)
-        .send({from: accounts[0]})
-
-    } catch(err){
-
+        .send({ from : accounts[ 0 ] });
+      Router.pushRoute(`/campaigns/${this.props.address}/requests`)
+    } catch (err) {
+      this.setState({ errorMessage : err.message });
     }
+    this.setState({ loading : false });
 
   };
 
@@ -40,8 +44,11 @@ class RequestsNew extends Component {
   render() {
     return (
       <Layout>
+        <Link route={`/campaigns/${this.props.address}/requests`}>
+          <a>Back</a>
+        </Link>
         <h3>Create a Request</h3>
-        <Form onSubmit={this.onSubmit}>
+        <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
           <Form.Field>
             <label>Description</label>
             <Input
@@ -63,7 +70,12 @@ class RequestsNew extends Component {
               onChange={event => this.setState({ recipient : event.target.value })}
             />
           </Form.Field>
-          <Button primary>Create Request</Button>
+          <Message error header="Oops!" content={this.state.errorMessage}/>
+
+          <Button
+            primary
+            loading={this.state.loading}
+          >Create Request</Button>
         </Form>
       </Layout>
     );
