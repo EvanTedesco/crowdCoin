@@ -7,11 +7,11 @@ import { Router, Link } from '../../../routes'
 
 class RequestsNew extends Component {
   state = {
-    value : '',
-    description : '',
-    recipient : '',
-    errorMessage : '',
-    loading : false
+    value: '',
+    description: '',
+    recipient: '',
+    errorMessage: '',
+    loading: false
   };
 
   static async getInitialProps(props) {
@@ -21,7 +21,7 @@ class RequestsNew extends Component {
 
   onSubmit = async (event) => {
     event.preventDefault();
-    this.setState({ loading : true, errorMessage : '' })
+    this.setState({ loading: true, errorMessage: '' })
 
     const campaign = Campaign(this.props.address);
     const { description, value, recipient } = this.state;
@@ -31,12 +31,12 @@ class RequestsNew extends Component {
 
       await campaign.methods.createRequest(
         description, web3.utils.toWei(value, 'ether'), recipient)
-        .send({ from : accounts[ 0 ] });
+        .send({ from: accounts[0] });
       Router.pushRoute(`/campaigns/${this.props.address}/requests`)
     } catch (err) {
-      this.setState({ errorMessage : err.message });
+      this.setState({ errorMessage: err.message });
     }
-    this.setState({ loading : false });
+    this.setState({ loading: false });
 
   };
 
@@ -53,21 +53,21 @@ class RequestsNew extends Component {
             <label>Description</label>
             <Input
               value={this.state.description}
-              onChange={event => this.setState({ description : event.target.value })}
+              onChange={event => this.setState({ description: event.target.value })}
             />
           </Form.Field>
           <Form.Field>
             <label>Value in Ether</label>
             <Input
               value={this.state.value}
-              onChange={event => this.setState({ value : event.target.value })}
+              onChange={event => this.setState({ value: event.target.value })}
             />
           </Form.Field>
           <Form.Field>
             <label>Recipient</label>
             <Input
               value={this.state.recipient}
-              onChange={event => this.setState({ recipient : event.target.value })}
+              onChange={event => this.setState({ recipient: event.target.value })}
             />
           </Form.Field>
           <Message error header="Oops!" content={this.state.errorMessage}/>

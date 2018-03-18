@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {Card, Button} from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { Card, Button } from 'semantic-ui-react';
 import Layout from '../components/Layout';
 import factory from '../ethereum/factory';
-import {Link} from '../routes';
+import { Link } from '../routes';
 
 class CampaignIndex extends Component {
 
@@ -15,13 +15,13 @@ class CampaignIndex extends Component {
   renderCampaigns() {
     const items = this.props.campaigns.map(address => {
       return {
-        header : address,
-        description : (
+        header: address,
+        description: (
           <Link route={`/campaigns/${address}`}>
-          <a>View Campaign</a>
+            <a>View Campaign</a>
           </Link>
         ),
-        fluid : true
+        fluid: true
       };
     });
     return <Card.Group items={items}/>;
