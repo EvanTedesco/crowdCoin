@@ -23,14 +23,14 @@ class ContributeForm extends Component {
       const accounts = await web3.eth.getAccounts();
       await campaign.methods.contribute().send({
         from: accounts[0],
-        value: web3.utils.toWei(this.state.value, 'ether')
+        value: web3.utils.toWei(this.state.value, 'ether'),
       });
-      Router.replaceRoute(`/campaigns/${this.props.address}`)
+      Router.replaceRoute(`/campaigns/${this.props.address}`);
     } catch (err) {
-      this.setState({ errorMessage: err.message })
-    },
-    this.setState({ loading: false, value: '' });
+      this.setState({ errorMessage: err.message });
+    }
 
+    this.setState({ loading: false, value: '' });
   };
 
   render() {
@@ -44,15 +44,14 @@ class ContributeForm extends Component {
             label="ether"
             labelPosition="right"
           />
-          <Message error header={"Oops! "} content={this.state.errorMessage}/>
+          <Message error header={'Oops! '} content={this.state.errorMessage}/>
           <Button primary loading={this.state.loading}>
             Contribute!
           </Button>
         </Form.Field>
       </Form>
-    )
+    );
   }
 }
-
 
 export default ContributeForm;

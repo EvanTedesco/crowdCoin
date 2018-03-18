@@ -21,12 +21,11 @@ class CampaignIndex extends Component {
             <a>View Campaign</a>
           </Link>
         ),
-        fluid: true
+        fluid: true,
       };
     });
     return <Card.Group items={items}/>;
   }
-
 
   render() {
     return (
